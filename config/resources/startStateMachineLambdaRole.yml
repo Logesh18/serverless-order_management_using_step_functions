@@ -1,0 +1,26 @@
+Resources:
+  startStateMachineLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: startStateMachineLambdaRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: startStateMachineLambdaRolePolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - states:StartExecution
+                  - sqs:DeleteMessage
+                Resource: 
+                  - arn:aws:states:us-east-1:625099618520:stateMachine:purchaseOrder
+                  - !GetAtt sendOrderMessageSQSQueue.Arn

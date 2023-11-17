@@ -1,0 +1,22 @@
+Resources:
+  CloudWatchLogsPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: CloudWatchLogsPolicy
+      Roles:
+        - !Ref sendSQSMessageLambdaRole
+        - !Ref startStateMachineLambdaRole
+        - !Ref validateSQSMessageLambdaRole
+        - !Ref saveOrderDetailsLambdaRole
+        - !Ref processOrderDetailsLambdaRole
+        - !Ref handleProcessOrderLambdaRole
+        - !Ref handleResponseLambdaRole
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: '*'

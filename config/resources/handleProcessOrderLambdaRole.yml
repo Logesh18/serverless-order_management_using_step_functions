@@ -1,0 +1,27 @@
+Resources:
+  handleProcessOrderLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: handleProcessOrderLambdaRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: handleProcessOrderPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - states:SendTaskSuccess
+                  - states:SendTaskFailure
+                  - dynamodb:UpdateItem
+                Resource:
+                  - !GetAtt Orders.Arn
+                  - arn:aws:states:us-east-1:625099618520:stateMachine:purchaseOrder

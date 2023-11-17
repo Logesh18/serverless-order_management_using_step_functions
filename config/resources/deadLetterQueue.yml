@@ -1,0 +1,21 @@
+Resources:
+  deadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: deadLetterQueue
+  
+  deadLetterQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - !Ref deadLetterQueue
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: "*"
+            Action:
+              - sqs:ReceiveMessage
+              - sqs:GetQueueAttributes
+              - sqs:DeleteMessage
+            Resource: !GetAtt deadLetterQueue.Arn

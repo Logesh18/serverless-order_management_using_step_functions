@@ -1,0 +1,28 @@
+Resources:
+  Orders:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: orders
+      AttributeDefinitions:
+        - AttributeName: order_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: order_id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+        
+  Stocks:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: stocks
+      AttributeDefinitions:
+        - AttributeName: product_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: product_id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5

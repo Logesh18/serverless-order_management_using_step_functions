@@ -1,0 +1,54 @@
+Comment: "Purchase Order Step Function"
+StartAt: validateSQSMessage
+States:
+  validateSQSMessage:
+    Type: Task
+    Resource: arn:aws:lambda:us-east-1:625099618520:function:serverless-step-function-example-dev-validateSQSMessageLambda
+    InputPath: $
+    OutputPath:  $
+    Next: checkValidationResult
+
+  checkValidationResult:
+    Type: Choice
+    Choices:
+      - Variable: "$.validationResult"
+        StringEquals: "success"
+        Next: processSuccess
+      - Variable: "$.validationResult"
+        StringEquals: "failed"
+        Next: processFailed
+    Default: processFailed
+
+  processSuccess:
+    Type: Task
+    Resource: arn:aws:states:::states:startExecution.waitForTaskToken
+    Parameters:
+      Input: 
+        validationOutput.$: $.result
+        TaskToken.$: "$$.Task.Token"
+      StateMachineArn: arn:aws:states:us-east-1:625099618520:stateMachine:processPurchaseOrder
+    TimeoutSeconds: 300
+    OutputPath: $
+    Catch:
+      - ErrorEquals:
+          - States.Timeout
+        ResultPath: "$.error"
+        Next: handleTimeoutError
+    Next: handleResponse
+
+  handleTimeoutError:
+    Type: Fail
+    Error: "TimeoutError"
+    Cause: "The processSuccess state timed out"
+
+  processFailed:
+    Type: Fail
+    Error: "ValidationFailed"
+    Cause: "Validation failed due to incorrect data"
+
+  handleResponse:
+    Type: Task
+    Resource: arn:aws:lambda:us-east-1:625099618520:function:serverless-step-function-example-dev-handleResponseLambda
+    InputPath: $
+    OutputPath:  $
+    End: true

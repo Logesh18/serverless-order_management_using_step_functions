@@ -1,0 +1,12 @@
+- ${file(config/resources/sendOrderMessageSQSQueue.yml)}
+- ${file(config/resources/deadLetterQueue.yml)}
+- ${file(config/resources/OrderEmailSNSTopic.yml)}
+- ${file(config/resources/tables.yml)}
+- ${file(config/resources/sendSQSMessageLambdaRole.yml)}
+- ${file(config/resources/startStateMachineLambdaRole.yml)}
+- ${file(config/resources/validateSQSMessageLambdaRole.yml)}
+- ${file(config/resources/saveOrderDetailsLambdaRole.yml)}
+- ${file(config/resources/processOrderDetailsLambdaRole.yml)}
+- ${file(config/resources/handleProcessOrderLambdaRole.yml)}
+- ${file(config/resources/handleResponseLambdaRole.yml)}
+- ${file(config/resources/CloudWatchLogsPolicy.yml)}

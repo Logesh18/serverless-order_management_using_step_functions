@@ -1,0 +1,14 @@
+Resources:
+  OrderEmailSNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: OrderEmailSNSTopic
+      TopicName: OrderEmailSNSTopic
+  
+  OrderEmailSNSSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: email
+      TopicArn:
+        Ref: OrderEmailSNSTopic
+      Endpoint: logeshcsekongu@gmail.com

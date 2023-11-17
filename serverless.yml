@@ -1,0 +1,32 @@
+service: serverless-step-function-example
+frameworkVersion: "3"
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: us-east-1
+
+functions: ${file(config/lambdas.yml)}
+
+stepFunctions: ${file(config/stepFunctions.yml)}
+
+resources: ${file(config/resources.yml)}
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-prune-plugin
+  - serverless-plugin-common-excludes
+  - serverless-step-functions
+
+custom:
+  commonExcludes:
+    - README.md
+    - .gitignore
+    - .editorconfig
+    - .npmignore
+    - .git/**
+    - node_modules

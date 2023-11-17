@@ -1,0 +1,21 @@
+Resources:
+  sendOrderMessageSQSQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: sendOrderMessageSQSQueue
+  
+  sendOrderMessageSQSQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - !Ref sendOrderMessageSQSQueue
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: "*"
+            Action:
+              - sqs:ReceiveMessage
+              - sqs:GetQueueAttributes
+              - sqs:DeleteMessage
+            Resource: !GetAtt sendOrderMessageSQSQueue.Arn

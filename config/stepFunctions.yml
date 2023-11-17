@@ -1,0 +1,7 @@
+stateMachines:
+  purchaseOrder:
+    name: purchaseOrder
+    definition: ${file(config/stepFunctions/purchaseOrder.yml)}
+  processPurchaseOrder:
+    name: processPurchaseOrder
+    definition: ${file(config/stepFunctions/processPurchaseOrder.yml)}
