@@ -2,7 +2,7 @@ import { SFNClient, StartExecutionCommand } from '@aws-sdk/client-sfn';
 
 const stepFunctionsClient: any = new SFNClient();
 
-export const handler = async (event: any, context: any) => {
+export const handler = async (event: any) => {
     console.log('event---->', event);
     const params: any = {
         stateMachineArn: process.env.STATE_MACHINE_ARN,

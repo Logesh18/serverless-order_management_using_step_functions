@@ -1,21 +1,27 @@
 {
   "compilerOptions": {
-    "preserveConstEnums": true,
-    "strictNullChecks": true,
-    "sourceMap": true,
-    "allowJs": true,
-    "target": "es2017",
-    "outDir": ".build",
+    "baseUrl": ".",
+    "paths": {
+      "@handlers/*": ["src/handlers/*"],
+      "@validator/*": ["src/*.ts"],
+      "@models/*": ["models/*.ts"]
+    },
+    "lib": ["ESNext"],
     "moduleResolution": "node",
-    "lib": ["es2017", "dom"],
-    "rootDir": "./",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "ES2020",
+    "outDir": ".build",
+    "module": "CommonJS",
+    "allowJs": true,
+    "strictNullChecks": true,
+    "preserveConstEnums": true,
     "strict": true,
-    "module": "commonjs",
     "esModuleInterop": true
   },
-  "include": [
-    "**/**/*"
-  ],
+  "include": ["src/handlers/**/*.ts"],
   "exclude": [
     "node_modules/**/*",
     ".serverless/**/*",
@@ -23,5 +29,8 @@
     "_warmup/**/*",
     ".vscode/**/*",
     "**/*.spec.ts"
-  ]
+  ],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
 }

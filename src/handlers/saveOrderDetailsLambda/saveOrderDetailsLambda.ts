@@ -31,7 +31,7 @@ export const handler = async (event: any): Promise<any> => {
 };
 
 const createOrderEntry = (event: any) => {
-    return new Promise(async (res: any, rej: any)=>{
+    return new Promise(async (res: any, _rej: any)=>{
         try{
             const dynamoDBParams: any = {
                 TableName: OrdersTableName,

@@ -3,7 +3,7 @@ import { DynamoDBDocumentClient, UpdateCommand, GetCommand } from '@aws-sdk/lib-
 let dynamoDBClient: any = new DynamoDBClient({ region: 'us-east-1' });
 const client: any = DynamoDBDocumentClient.from(dynamoDBClient);
 
-export const handler = async (event: any, context: any) => {
+export const handler = async (event: any) => {
   console.log('event---->', event);
   const { product_id }: { product_id: string } = event;
   try {

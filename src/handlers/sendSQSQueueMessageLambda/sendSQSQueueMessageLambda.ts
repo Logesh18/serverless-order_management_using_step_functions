@@ -2,7 +2,7 @@ import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 
 export const handler = async (event: any): Promise<any> => {
     const queueUrl: string = process.env.ORDER_QUEUE_URL || '';
-
+    console.log('entered---->');
     if (queueUrl.length) {
         const sqsClient: any = new SQSClient({
             region: 'us-east-1',

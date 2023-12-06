@@ -7,5 +7,4 @@ const validateData = (data: any, schema: any) => {
     const isValid = validate(data);
     return { valid: isValid, result: isValid ? data : validate.errors };
 };
-  
 export default validateData;
